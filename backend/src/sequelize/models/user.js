@@ -8,27 +8,31 @@ module.exports = (sequelize, DataTypes) => {
                 // column 이름
                 type: DataTypes.STRING(255), // 데이터 타입 설정
                 primaryKey: true,
-                allowNull: false, // null 허용 설정,
+                allowNull: false
             },
-            nickname: {
+            password: {
+                type: DataTypes.STRING(255),
+                allowNull: false
+            },
+            name: {
                 type: DataTypes.STRING(255), // 데이터 타입 설정
                 primaryKey: true,
                 allowNull: false // null 허용 설정
             },
-            password: {
-                type:  DataTypes.STRING(255), 
+            status: {
+                type: DataTypes.BOOLEAN,
                 allowNull: false
             },
-            character: {
-                type:  DataTypes.STRING(255), 
+            school: {
+                type: DataTypes.STRING(255),
                 allowNull: true
             },
-            job: {
-                type:  DataTypes.STRING(255), 
+            address: {
+                type: DataTypes.STRING(255),
                 allowNull: true
             },
-            hobby: {
-                type:  DataTypes.STRING(255), 
+            birthday: {
+                type: DataTypes.DATE,
                 allowNull: true
             },
         }, {
@@ -39,11 +43,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 
-    user.associate = m => {
-        user.hasMany(m.userkeyword, {
-            foreignKey: 'userid',
-            onDelete: 'cascade'
-        })
-    }
+
     return user
 };
