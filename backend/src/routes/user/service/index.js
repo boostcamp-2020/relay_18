@@ -4,13 +4,13 @@ var router = express.Router();
 
 
 //회원가입
-const signIn = require('./signup');
-router.use('/signin', wrap(signIn));
+const signUp = require('./signup');
+router.use('/signup', wrap(signUp));
 
 //로그인
 
-const signUp = require('./singin');
-router.use('/signup', wrap(signUp));
+const signIn = require('./signin');
+router.use('/signin', wrap(signIn));
 
 
 //토큰 검증

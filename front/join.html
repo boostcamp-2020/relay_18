@@ -33,6 +33,7 @@
             }
             postData('./api/user/signup', dt)
             .then(data => {
+                console.log(data);
                 if (data.ok!=true){
                     alert('유효하지 않은 양식입니다.')
                 } else {
