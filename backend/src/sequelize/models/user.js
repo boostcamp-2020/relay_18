@@ -15,8 +15,7 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             name: {
-                type: DataTypes.STRING(255), // 데이터 타입 설정
-                primaryKey: true,
+                type: DataTypes.STRING(255), // 데이터 타입 설정 primaryKey: true,
                 allowNull: false // null 허용 설정
             },
             status: {
