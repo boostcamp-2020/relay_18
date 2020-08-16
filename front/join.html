@@ -43,7 +43,7 @@
                 if (data.ok!=true){
                     alert('유효하지 않은 양식입니다.')
                 } else {
-                    location.href='../feature_A/chatbot.html'
+                    location.href='../chatbot.html'
                 }
             });
         }
@@ -119,7 +119,7 @@
                 alert("주소를 입력하세요!!")
                 return
             }
-            if (inputBirthday) {
+            if (inputBirthday == "") {
                 alert("생일을 입력하세요!!")
                 return
             }
