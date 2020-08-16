@@ -1,8 +1,0 @@
-FROM node
-WORKDIR /app
-COPY package*.json ./backend/src/
-RUN npm install
-COPY . ./backend/src/
-COPY ../../front ./front
-EXPOSE 3000
-CMD ["npm", "start"]
