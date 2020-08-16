@@ -52,6 +52,26 @@
             });
         }
 
+        function fillPrivateInfo(dataFromOCR){
+            let name = document.getElementById('name');
+            let address = document.getElementById('address');
+            //전달되는 값 달라지면 재설정 해줘야함.
+            name.value = dataFromOCR.name;
+            address.value = dataFromOCR.address;
+        }
+        
+        const getImage = (data) => {
+            postData('./api/ocr', data)
+            .then(result => {
+                console.log(result);
+                if (result.status>=400){
+                    alert('유효하지 않은 양식입니다.')
+                } else {
+                    fillPrivateInfo(result);
+                }
+            });
+        }
+
         function encode() {
             let selectedfile = document.getElementById("file").files;
             if (selectedfile.length > 0) {
@@ -122,26 +142,6 @@
             obj.school.value =''
             
             postForm();
-        }
-        
-        function fillPrivateInfo(dataFromOCR){
-            let name = document.getElementById('name');
-            let address = document.getElementById('address');
-            //전달되는 값 달라지면 재설정 해줘야함.
-            name.value = dataFromOCR.name;
-            address.value = dataFromOCR.address;
-        }
-
-        const getImage = (data) => {
-            postData('./api/ocr', data)
-            .then(result => {
-                console.log(result);
-                if (result.status>=400){
-                    alert('유효하지 않은 양식입니다.')
-                } else {
-                    fillPrivateInfo(result);
-                }
-            });
         }
     </script>
 </head>
