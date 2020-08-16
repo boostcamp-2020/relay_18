@@ -5,7 +5,11 @@ var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var app = express();
-
+app.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+  });
 app.set("view engine","ejs")
 app.set("views","../../front")
 app.engine('html', require('ejs').renderFile);
