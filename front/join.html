@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+​
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>HTML Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" 
+            integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="join.css">
+    <script type="text/javascript">
+        
+        // 함수를 보내고 200 status가 오면 화면 이동
+        const postForm= () => {
+            // Example POST method implementation:
+            async function postData(url, data) {
+            // Default options are marked with *
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data) // body data type must match "Content-Type" header
+            });
+            return response.json(); // parses JSON response into native JavaScript objects
+            }
+
+            postData('/backend/users', { answer: 42 }) // 나중에 수정해주세요 ^^ :)
+            .then(data => {
+                if (data.ok!=true){
+                    alert('유효하지 않은 양식입니다.')
+                } else {
+                    location.href='../feature_A/chatbot.html'
+                }
+            });
+        }
+
+        function encode() {
+            let selectedfile = document.getElementById("file").files;
+            if (selectedfile.length > 0) {
+                let imageFile = selectedfile[0];
+                let fileReader = new FileReader();
+                fileReader.onload = function(fileLoadedEvent) {
+                    let srcData = fileLoadedEvent.target.result;
+                    let newImage = document.createElement('img');
+                    newImage.src = srcData;
+                    document.getElementById("dummy").innerHTML = newImage.outerHTML;
+                    document.getElementById("txt").value = document.getElementById("dummy").innerHTML;
+                }
+                fileReader.readAsDataURL(imageFile);
+            }
+        }
+
+        function inputCheck(){                          // 제대로 된 회원정보가 들어왔는지 확인
+            const obj = document.joinForm;
+            const regType1 = /^[A-Za-z0-9+]*$/;         // 아이디 표현 정규식(아이디는 영문 + 숫자 사용 가능)
+            
+            let inputID = obj.id.value;
+            let inputPW = obj.pass.value;
+            let inputPWCheck = obj.passCheck.value;
+            let inputNM = obj.name.value;
+            let inputBirthday = obj.birthday.value;
+            let inputSC = obj.school.value;
+            let inputAddress = obj.address.value;
+            if( localStorage.getItem(inputID) ) {
+                alert("이미 있는 아이디입니다.")
+                return;
+            }
+            if(!regType1.test(inputID) || inputID.length < 3) { //아이디가 영문 + 숫자 혼용이 아닌 경우
+                alert('아이디가 조건에 맞지 않습니다 \n(아이디는 영문 + 숫자 조합의 3글자 이상)'); 
+                return;
+            }
+            if( inputPW.length < 3){   //비밀번호가 3글자 미만인 경우
+                alert("비밀번호는 3글자 이상!!");
+                return;
+            }
+            if( inputPWCheck != inputPW){   //비밀번호가 3글자 미만인 경우
+                alert("비밀번호가 일치하지 않습니다!!");
+                return;
+            }
+            if(inputNM =="") {
+                alert("이름을 입력하세요!!");
+                return;
+            }
+            if(inputSC == "") {
+                alert("학교를 입력하세요!!")
+                return;
+            }
+            if(inputAddress == "") {
+                alert("주소를 입력하세요!!")
+                return
+            }
+            if (inputBirthday) {
+                alert("생일을 입력하세요!!")
+                return
+            }
+            // let path === server_url
+            
+            alert("회원가입 성공!");
+            obj.id.value =''
+            obj.pass.value =''
+            obj.passCheck.value = ''
+            obj.name.value =''
+            obj.school.value =''
+            
+            postForm();
+        } 
+        
+        
+        function fillPrivateInfo(dataFromOCR){
+            let name = document.getElementById('name');
+            let birthday = document.getElementById('birthday');
+            let address = document.getElementById('address');
+            //전달되는 값 달라지면 재설정 해줘야함.
+            name.value = dataFromOCR.name; 
+            birthday.value = dataFromOCR.birthday;
+            address.value = dataFromOCR.address;
+        }
+    </script>
+</head>
+​
+<body>
+    <form action="./main.html" name="joinForm">
+        <div class="container div-content" id='inputForm'>
+            <div class="row justify-content-center" style="padding-top:10px;">
+                <label>회원가입</label>
+            </div>
+            <div class="row justify-content-left" style="padding-top:10px;" >
+            <p>주민등록증 사진을 올려주시면 자동으로 칸을 채워드립니다.</p>
+            </div>
+            <div class="row justify-content-left" style="padding-top:10px;">
+                <input type="file" id="file" name="file">
+                <div id="dummy">
+                </div>
+            </div>
+            <div class="row justify-content-center" style="padding-top:10px;">
+                <input type="text" class="inputId form-control" placeholder="ID" name="id"></input>
+            </div>
+            <div class="row justify-content-center" style="padding-top:10px;">
+                <input type="password" class="inputPW form-control" placeholder="Password" name="pass"></input>
+            </div>
+            <div class="row justify-content-center" style="padding-top:10px;">
+                <input type="password" class="inputPW form-control" placeholder="Password Check" name="passCheck"></input>
+            </div>
+            <div class="row justify-content-center" style="padding-top:10px;">
+                <input type="text" id="name" class="inputName form-control" placeholder="Name" name="name"></input>
+            </div>
+            <div class="row justify-content-center" style="padding-top:10px;">
+                <input type="text" id="birthday" class="birthday form-control" placeholder="Birthday" name="birthday" ></input> <!--readonly-->
+            </div>
+            <div class="row justify-content-center" style="padding-top:10px;">
+                <input type="text" class="inputSchool form-control" placeholder="School" name="school"></input>
+            </div>
+            <div class="row justify-content-center" style="padding-top:10px;">
+                <input type="address" id="address" class="address form-control" placeholder="Address" name="address"></input> <!--readonly-->
+            </div>
+            <div class="col" style="padding-top:30px;">
+                <button type="button" class="btn btn-primary" id='btnJoin' onclick="inputCheck()">JOIN</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
