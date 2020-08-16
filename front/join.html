@@ -130,6 +130,8 @@
             obj.passCheck.value = ''
             obj.name.value =''
             obj.school.value =''
+            obj.address.value = ''
+            obj.birthday.value = ''
             postForm();
         }
     </script>
@@ -145,8 +147,8 @@
             </div>
             <div class="row justify-content-left" style="padding-top:10px;">
                 <input type="file" id="file" name="file" onchange="encode()">
-                <div id="dummy">
-                </div>
+            </div>
+            <div id="dummy" class="row justify-content-left" style="padding-top:10px;" >
             </div>
             <div class="row justify-content-center" style="padding-top:10px;">
                 <input type="text" class="inputId form-control" placeholder="ID" name="id"></input>

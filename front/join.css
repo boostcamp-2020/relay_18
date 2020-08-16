@@ -4,7 +4,6 @@ body {
 
 form {
     background-color: white;
-    height: 55vw;
     width: 90vw;
     margin: 80px auto;
     padding-top: 50px;
@@ -20,7 +19,6 @@ form {
 }
 
 .div-content{
-    height: 35rem;
     width: 70%;
     padding: 1rem;
     /* margin: 50px; */
