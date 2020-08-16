@@ -4,12 +4,12 @@ var router = express.Router();
 
 
 //회원가입
-const signIn = require('./signin');
+const signIn = require('./signup');
 router.use('/signin', wrap(signIn));
 
 //로그인
 
-const signUp = require('./signup');
+const signUp = require('./singin');
 router.use('/signup', wrap(signUp));
 
 

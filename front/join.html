@@ -23,27 +23,20 @@
         }
         // 함수를 보내고 200 status가 오면 화면 이동
         const postForm= () => {
-            const obj = document.joinForm;
-            let id = obj.id.value;
-            let pw = obj.pass.value;
-            let name = obj.name.value;
-            let birthday = obj.birthday.value;
-            let school = obj.school.value;
-            let address = obj.address.value;
             const dt = {
-                'id' : id,
-                'password' : pw,
-                'name' : name,
-                'school' : school,
-                'address' : address,
-                'birthday': birthday
+                'id' : document.getElementById('id').value,
+                'password' : document.getElementById('password').value,
+                'name' : document.getElementById('name').value,
+                'school' : document.getElementById('school').value,
+                'address' : document.getElementById('address').value,
+                'birthday': document.getElementById('birthday').value
             }
-            postData('./api/user/signin', dt)
+            postData('./api/user/signup', dt)
             .then(data => {
                 if (data.ok!=true){
                     alert('유효하지 않은 양식입니다.')
                 } else {
-                    location.href='../chatbot.html'
+                    location.href='../chatbot'
                 }
             });
         }
@@ -54,13 +47,13 @@
             name.value = dataFromOCR.name;
             address.value = dataFromOCR.address;
         }
-        const getImage = (data) => {
+        const getImage = data => {
             postData('./api/ocr', {"img":data})
             .then(result => {
-                console.log(result);
                 if (result.status>=400){
                     alert('유효하지 않은 양식입니다.')
                 } else {
+                    alert('회원가입 성공!')
                     fillPrivateInfo(result);
                 }
             });
@@ -124,7 +117,7 @@
                 return
             }
             // let path === server_url
-            alert("회원가입 성공!");
+            postForm();
             obj.id.value =''
             obj.pass.value =''
             obj.passCheck.value = ''
@@ -132,7 +125,6 @@
             obj.school.value =''
             obj.address.value = ''
             obj.birthday.value = ''
-            postForm();
         }
     </script>
 </head>
@@ -151,10 +143,10 @@
             <div id="dummy" class="row justify-content-left" style="padding-top:10px;" >
             </div>
             <div class="row justify-content-center" style="padding-top:10px;">
-                <input type="text" class="inputId form-control" placeholder="ID" name="id"></input>
+                <input type="text" class="inputId form-control" placeholder="ID" name="id" id="id"></input>
             </div>
             <div class="row justify-content-center" style="padding-top:10px;">
-                <input type="password" class="inputPW form-control" placeholder="Password" name="pass"></input>
+                <input type="password" class="inputPW form-control" placeholder="Password" name="pass" id="password"></input>
             </div>
             <div class="row justify-content-center" style="padding-top:10px;">
                 <input type="password" class="inputPW form-control" placeholder="Password Check" name="passCheck"></input>
@@ -166,7 +158,7 @@
                 <input type="text" id="birthday" class="birthday form-control" placeholder="Birthday" name="birthday" ></input> <!--readonly-->
             </div>
             <div class="row justify-content-center" style="padding-top:10px;">
-                <input type="text" class="inputSchool form-control" placeholder="School" name="school"></input>
+                <input type="text" class="inputSchool form-control" placeholder="School" name="school" id="school"></input>
             </div>
             <div class="row justify-content-center" style="padding-top:10px;">
                 <input type="address" id="address" class="address form-control" placeholder="Address" name="address"></input> 

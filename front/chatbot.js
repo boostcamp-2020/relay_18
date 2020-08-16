@@ -51,7 +51,7 @@ function new_chatbot_msg(str){
             joinBtn.setAttribute("class", "join_btn");
             joinBtn.appendChild(document.createTextNode("회원가입"));
             joinBtn.addEventListener('click', function(e) {
-                location.href='../main/join.html';
+                location.href='../join';
             });
             newDiv.appendChild(joinBtn);                
             break;
