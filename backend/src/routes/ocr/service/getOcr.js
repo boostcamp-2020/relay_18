@@ -1,6 +1,6 @@
 let ocr = require('../../../modules/imgtToJson')
 module.exports = async function (req, res) {
-        // console.log(req.body.img)
+        // console.log(req)
         try {
                 const imgInfo = await ocr(req.body.img);
                 let data = {
