@@ -8,6 +8,7 @@
             integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="join.css">
     <script type="text/javascript">
+        const Buffer = require('buffer/').Buffer;
         
         // Example POST method implementation:
         async function postData(url, data) {
@@ -35,9 +36,17 @@
             });
         }
 
-        function base64_encode(file) {
-            // convert binary data to base64 encoded string
-            return new Buffer.from(file).toString('base64');
+        function base64_encode() {
+            var c = document.createElement('canvas');
+            var img = document.getElementById('file');
+            c.height = img.naturalHeight;
+            c.width = img.naturalWidth;
+            var ctx = c.getContext('2d');
+
+            ctx.drawImage(img, 0, 0, c.width, c.height);
+            var base64String = c.toDataURL();
+            console.log(base64String);
+            return base64String;
         }
 
         /*
@@ -145,7 +154,7 @@
                 <p>주민등록증 사진을 올려주시면 자동으로 칸을 채워드립니다.</p>
             </div>
             <div class="row justify-content-left" style="padding-top:10px;">
-                <input type="file" id="file" name="file" onchange="getImage(this.files)">
+                <input type="file" id="file" name="file" onchange="base64_encode()">
                 <div id="dummy">
                 </div>
             </div>
