@@ -35,6 +35,12 @@
             });
         }
 
+        function base64_encode(file) {
+            // convert binary data to base64 encoded string
+            return new Buffer.from(file).toString('base64');
+        }
+
+        /*
         function encode() {
             let selectedfile = document.getElementById("file").files;
             if (selectedfile.length > 0) {
@@ -47,9 +53,11 @@
                     document.getElementById("dummy").innerHTML = newImage.outerHTML;
                     document.getElementById("txt").value = document.getElementById("dummy").innerHTML;
                 }
+                console.log(fileReader.readAsDataURL(imageFile));
                 return fileReader.readAsDataURL(imageFile);
             }
         }
+        */
 
         function inputCheck(){                          // 제대로 된 회원정보가 들어왔는지 확인
             const obj = document.joinForm;
@@ -114,10 +122,10 @@
             address.value = dataFromOCR.address;
         }
 
-        const getImage = () => {
-            postData('http://127.0.0.1:3000/api/ocr', { img: encode() })
+        const getImage = (file) => {
+            postData('http://127.0.0.1:3000/api/ocr', { img: base64_encode(file) })
             .then(result => {
-                if (result.status!=500){
+                if (result.status>=400){
                     alert('유효하지 않은 양식입니다.')
                 } else {
                     fillPrivateInfo(result);
@@ -137,7 +145,7 @@
                 <p>주민등록증 사진을 올려주시면 자동으로 칸을 채워드립니다.</p>
             </div>
             <div class="row justify-content-left" style="padding-top:10px;">
-                <input type="file" id="file" name="file">
+                <input type="file" id="file" name="file" onchange="getImage(this.files)">
                 <div id="dummy">
                 </div>
             </div>
