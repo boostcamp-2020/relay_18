@@ -1,4 +1,10 @@
 # 3주차 - For Demo Day!
+## DEMO URL
+http://101.101.219.171:9999/
+
+## 기술 관련 Wiki
+https://github.com/boostcamp-2020/relay_18/wiki
+
 ## 체크포인트
 <ul>
 <li>서버가 작동된다. (메인 페이지로 들어가진다.)</li>
